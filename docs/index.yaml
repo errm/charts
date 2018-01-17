@@ -2,11 +2,19 @@ apiVersion: v1
 entries:
   version-app:
   - apiVersion: v1
-    created: 2018-01-16T21:44:59.371756178Z
+    created: 2018-01-17T14:05:45.173144504Z
+    description: A Helm chart for Kubernetes
+    digest: 5e99dbb6dca508b17fa8bdbea61f3102ea97160e2c63fb8305c9385ad3b977fb
+    name: version-app
+    urls:
+    - https://errm.github.io/charts/version-app-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    created: 2018-01-17T14:05:45.172876494Z
     description: A Helm chart for Kubernetes
     digest: de92da9cae3fbc7ea2538febc253eb06d068e5a2be20c2256578f32159dde4f1
     name: version-app
     urls:
     - https://errm.github.io/charts/version-app-0.1.0.tgz
     version: 0.1.0
-generated: 2018-01-16T21:44:59.371382097Z
+generated: 2018-01-17T14:05:45.172105257Z
