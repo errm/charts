@@ -1,4 +1,5 @@
 apiVersion: v1
-description: A Helm chart for Kubernetes
+description: A Helm chart for demonstrating deployment processes
 name: version-app
 version: 0.1.2
+home: https://github.com/errm/versions

@@ -72,22 +72,22 @@
   <h1>Helm Repo</h1>
   <pre>helm repo add errm https://errm.github.io/charts/</pre>
   <main>
-    
+    <% CHARTS.each do |chart| %>
       <div class="package">
         <header>
-          <h3>0.1.2</h3>
-          <h2>version-app</h2>
+          <h3><%= chart["version"] %></h3>
+          <h2><%= chart["name"] %></h2>
         </header>
         <div class="description">
-          <p>A Helm chart for demonstrating deployment processes</p>
+          <p><%= chart["description"] %></p>
           <pre>helm repo update
-helm install errm/version-app</pre>
-          
-            <p><a href="https://github.com/errm/versions">https://github.com/errm/versions</a></p>
-          
+helm install errm/<%= chart["name"] %></pre>
+          <% if chart["home"] %>
+            <p><a href="<%= chart["home"] %>"><%= chart["home"] %></a></p>
+          <% end %>
         </div>
       </div>
-    
+    <% end %>
   </main>
 </body>
 </html>
