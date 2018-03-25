@@ -3,7 +3,17 @@ entries:
   kubeslate:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-03-25T12:07:09.074478+01:00
+    created: 2018-03-25T13:08:19.572132+01:00
+    description: Display basic info about your Kubernetes cluster
+    digest: 43490ee70772f2c1d8ef7c7a719336c57349ed96320ee9d5b4a9eebbdbccb8a2
+    home: https://github.com/errm/kubeslate
+    name: kubeslate
+    urls:
+    - https://errm.github.io/charts/kubeslate-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2018-03-25T13:08:19.571693+01:00
     description: Display basic info about your Kubernetes cluster
     digest: 06c9de910734dbbdc2d9d5b4b5d25c36921bedb0b3bc8202c0ee18202bbe81d2
     home: https://github.com/errm/kubeslate
@@ -13,7 +23,7 @@ entries:
     version: 0.1.0
   version-app:
   - apiVersion: v1
-    created: 2018-03-25T12:07:09.075707+01:00
+    created: 2018-03-25T13:08:19.575089+01:00
     description: A Helm chart for demonstrating deployment processes
     digest: 58ea79f213104e1eb9e47acab2e5be7569a72ede37742712159698d948702eff
     home: https://github.com/errm/versions
@@ -22,7 +32,7 @@ entries:
     - https://errm.github.io/charts/version-app-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
-    created: 2018-03-25T12:07:09.074962+01:00
+    created: 2018-03-25T13:08:19.574332+01:00
     description: A Helm chart for Kubernetes
     digest: 5e99dbb6dca508b17fa8bdbea61f3102ea97160e2c63fb8305c9385ad3b977fb
     name: version-app
@@ -30,11 +40,11 @@ entries:
     - https://errm.github.io/charts/version-app-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2018-03-25T12:07:09.074735+01:00
+    created: 2018-03-25T13:08:19.573249+01:00
     description: A Helm chart for Kubernetes
     digest: de92da9cae3fbc7ea2538febc253eb06d068e5a2be20c2256578f32159dde4f1
     name: version-app
     urls:
     - https://errm.github.io/charts/version-app-0.1.0.tgz
     version: 0.1.0
-generated: 2018-03-25T12:07:09.073981+01:00
+generated: 2018-03-25T13:08:19.570695+01:00
