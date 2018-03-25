@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "kubeslate.fullname" . }}
+  labels:
+    app: {{ template "kubeslate.name" . }}
+    chart: {{ template "kubeslate.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "kubeslate.name" . }}
+    release: {{ .Release.Name }}
