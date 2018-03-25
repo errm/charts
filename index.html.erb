@@ -67,17 +67,17 @@
 <body>
   <pre>helm repo add errm https://errm.github.io/charts/</pre>
   <main>
-<% CHARTS.each do |chart| %>
+<% Chart.all.each do |chart| %>
     <div class="package">
       <header>
-        <h3><%= chart["version"] %></h3>
-        <h2><%= chart["name"] %></h2>
+        <h3><%= chart.version %></h3>
+        <h2><%= chart.name %></h2>
       </header>
       <div class="description">
-        <p><%= chart["description"] %></p>
+        <p><%= chart.description %></p>
         <pre>helm repo update
-helm install errm/<%= chart["name"] %></pre>
-        <% if chart["home"] %><p><a href="<%= chart["home"] %>"><%= chart["home"] %></a></p><% end %>
+helm install errm/<%= chart.name %></pre>
+        <% if chart.home %><p><a href="<%= chart.home %>"><%= chart.home %></a></p><% end %>
       </div>
     </div>
 <% end %>
