@@ -18,6 +18,9 @@ spec:
       labels:
         app: {{ template "kubeslate.name" . }}
         release: {{ .Release.Name }}
+{{- if .Values.podLabels }}
+{{ toYaml .Values.podLabels | indent 8 }}
+{{- end }}
     spec:
       containers:
         - name: {{ .Chart.Name }}
