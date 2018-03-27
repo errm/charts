@@ -3,7 +3,7 @@ entries:
   kubeslate:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-03-26T23:01:05.137612+01:00
+    created: 2018-03-27T01:21:19.511619+01:00
     description: Display basic info about your Kubernetes cluster
     digest: bec3c04fb9e3423e45bd14fbc8c114a6ad3c9144231ec39b310492f7c2a50b18
     home: https://github.com/errm/kubeslate
@@ -13,7 +13,7 @@ entries:
     version: 0.1.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-03-26T23:01:05.137205+01:00
+    created: 2018-03-27T01:21:19.510977+01:00
     description: Display basic info about your Kubernetes cluster
     digest: 70d7a127e84b0c23f945de35c532eb8f822f12ec39d82b2002728ec7df58f61f
     home: https://github.com/errm/kubeslate
@@ -23,7 +23,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-03-26T23:01:05.136123+01:00
+    created: 2018-03-27T01:21:19.510442+01:00
     description: Display basic info about your Kubernetes cluster
     digest: a79b0276a14c0f8ee6f3d7f1b76b0001d0e4a828b94e9fb20025958e8f4c1d1d
     home: https://github.com/errm/kubeslate
@@ -33,7 +33,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-03-26T23:01:05.135297+01:00
+    created: 2018-03-27T01:21:19.509817+01:00
     description: Display basic info about your Kubernetes cluster
     digest: 43490ee70772f2c1d8ef7c7a719336c57349ed96320ee9d5b4a9eebbdbccb8a2
     home: https://github.com/errm/kubeslate
@@ -43,7 +43,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-03-26T23:01:05.134462+01:00
+    created: 2018-03-27T01:21:19.508986+01:00
     description: Display basic info about your Kubernetes cluster
     digest: 06c9de910734dbbdc2d9d5b4b5d25c36921bedb0b3bc8202c0ee18202bbe81d2
     home: https://github.com/errm/kubeslate
@@ -53,7 +53,7 @@ entries:
     version: 0.1.0
   version-app:
   - apiVersion: v1
-    created: 2018-03-26T23:01:05.140304+01:00
+    created: 2018-03-27T01:21:19.513449+01:00
     description: A Helm chart for demonstrating deployment processes
     digest: 58ea79f213104e1eb9e47acab2e5be7569a72ede37742712159698d948702eff
     home: https://github.com/errm/versions
@@ -62,7 +62,7 @@ entries:
     - https://errm.github.io/charts/version-app-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
-    created: 2018-03-26T23:01:05.139549+01:00
+    created: 2018-03-27T01:21:19.512685+01:00
     description: A Helm chart for Kubernetes
     digest: 5e99dbb6dca508b17fa8bdbea61f3102ea97160e2c63fb8305c9385ad3b977fb
     name: version-app
@@ -70,11 +70,21 @@ entries:
     - https://errm.github.io/charts/version-app-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
-    created: 2018-03-26T23:01:05.138756+01:00
+    created: 2018-03-27T01:21:19.512127+01:00
     description: A Helm chart for Kubernetes
     digest: de92da9cae3fbc7ea2538febc253eb06d068e5a2be20c2256578f32159dde4f1
     name: version-app
     urls:
     - https://errm.github.io/charts/version-app-0.1.0.tgz
     version: 0.1.0
-generated: 2018-03-26T23:01:05.132741+01:00
+  versions:
+  - apiVersion: v1
+    created: 2018-03-27T01:21:19.513706+01:00
+    description: A Helm chart for demonstrating deployment processes
+    digest: b651df12e9ab50c36dc9ddb70f0049c7a873df3907adc48e8962dd97e033998d
+    home: https://github.com/errm/versions
+    name: versions
+    urls:
+    - https://errm.github.io/charts/versions-0.1.2.tgz
+    version: 0.1.2
+generated: 2018-03-27T01:21:19.508138+01:00
