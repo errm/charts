@@ -1,0 +1,47 @@
+{{- range $name, $component := .Values.components -}}
+{{- if eq $component.kind "HookJob" -}}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $.Values.name }}-{{ $name }}
+  labels:
+    app: {{ $.Values.name }}
+    component: {{ $name }}
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+  annotations:
+    "helm.sh/hook": {{ $component.hook }}
+    "helm.sh/hook-weight": {{ $component.weight | default 10 | quote }}
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+spec:
+  template:
+    metadata:
+      labels:
+        app: {{ $.Values.name }}
+        component: {{ $name }}
+        release: {{ $.Release.Name }}
+    spec:
+{{- if $.Values.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ $.Values.image.pullSecret }}
+{{- end }}
+      restartPolicy: OnFailure
+      containers:
+        - name: {{ $.Values.name }}
+          image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          command: {{ toJson $component.command }}
+          {{ if $component.args -}}
+          args: {{ toJson $component.args }}
+          {{ end -}}
+          envFrom:
+          - configMapRef:
+              name: {{ $.Release.Name }}-hook-env-{{ $.Release.Revision }}
+          - secretRef:
+              name: {{ $.Release.Name }}-hook-env-{{ $.Release.Revision }}
+          resources:
+{{ $component.resources | default $.Values.resources | toYaml | indent 12 }}
+{{- end -}}
+{{- end -}}

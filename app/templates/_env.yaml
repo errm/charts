@@ -1,0 +1,30 @@
+{{- define "app.env-secret-data" -}}
+{{- range $name, $var := .Values.env -}}
+{{- if $var.secret -}}
+  {{- if $var.optional -}}
+  {{- else -}}
+    {{- $message := printf "missing required environment variable %s Please set env.%s.value" $name $name -}}
+    {{ $_ := required $message $var.value }}
+  {{- end -}}
+  {{- if ($var.value | quote) }}
+  {{ $name }}: {{ $var.value | b64enc | quote }}
+  {{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "app.env-data" -}}
+{{- range $name, $var := .Values.env -}}
+{{- if $var.secret -}}
+{{- else -}}
+  {{- if $var.optional -}}
+  {{- else -}}
+    {{- $message := printf "missing required environment variable %s Please set env.%s.value" $name $name -}}
+    {{ $_ := required $message $var.value }}
+  {{- end -}}
+  {{- if ($var.value | quote) }}
+  {{ $name }}: {{ $var.value | quote }}
+  {{- end -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}

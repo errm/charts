@@ -1,0 +1,76 @@
+{{- range $name, $component := .Values.components }}
+{{- if eq $component.kind "Deployment" }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Values.name }}-{{ $name }}
+  labels:
+    app: {{ $.Values.name }}
+    component: {{ $name }}
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  replicas: {{ $component.replicas | default $.Values.deployment.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ $.Values.name }}
+        component: {{ $name }}
+        release: {{ $.Release.Name }}
+      annotations:
+        checksum/env: {{ include (print $.Template.BasePath "/env.yaml") $ | sha256sum }}
+    spec:
+{{- if $.Values.image.pullSecret }}
+      imagePullSecrets:
+        - name: {{ $.Values.image.pullSecret }}
+{{- end }}
+      containers:
+        - name: {{ $.Values.name }}
+          image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          command: {{ toJson $component.command }}
+          args: {{ toJson $component.args }}
+          envFrom:
+          - configMapRef:
+              name: {{ $.Release.Name }}-env
+          - secretRef:
+              name: {{ $.Release.Name }}-env
+          resources:
+{{ $component.resources | default $.Values.resources | toYaml | indent 12 }}
+{{- if $component.ports }}
+          ports:
+{{ toYaml $component.ports | indent 12 }}
+{{- end }}
+{{- if $component.livenessProbe }}
+          livenessProbe:
+{{ toYaml $component.livenessProbe | indent 12 }}
+{{- end }}
+{{- if $component.readinessProbe }}
+          readinessProbe:
+{{ toYaml $component.readinessProbe | indent 12 }}
+{{- end }}
+{{- if $component.service }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Values.name }}-{{ $name }}
+  labels:
+    app: {{ $.Values.name }}
+    component: {{ $name }}
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  type: {{ $component.service.type | default $.Values.service.type }}
+  ports:
+{{ toYaml $component.service.ports | indent 4 }}
+  selector:
+    app: {{ $.Values.name }}
+    component: {{ $name }}
+    release: {{ $.Release.Name }}
+{{- end }}
+{{- end }}
+{{- end }}

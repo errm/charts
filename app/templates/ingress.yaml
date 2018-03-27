@@ -1,0 +1,27 @@
+{{- range $name, $component := .Values.components }}
+{{- if eq $component.kind "Ingress" }}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $.Values.name }}-{{ $name }}
+  labels:
+    app: {{ $.Values.name }}
+    component: {{ $name }}
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+{{- if $component.access }}
+    access: {{ $component.access }}
+{{- end }}
+spec:
+  rules:
+  - host: {{ required "A host is required for all ingresses" $component.host }}
+    http:
+      paths:
+        - path: {{ default "/" $component.path }}
+          backend:
+            serviceName: {{ $.Values.name }}-{{ required "A service name is required for all ingresses" $component.service }}
+            servicePort: {{ required "A service port is required for all ingresses" $component.port }}
+{{- end }}
+{{- end }}

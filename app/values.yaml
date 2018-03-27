@@ -1,0 +1,25 @@
+name: example-app
+
+image:
+  repository: errm/example
+  tag: latest
+  pullPolicy: IfNotPresent
+  pullSecret: null
+
+deployment:
+  replicas: 1
+
+service:
+  type: ClusterIP
+
+cron:
+  successfulJobsHistoryLimit: 10
+  failedJobsHistoryLimit: 10
+  concurrencyPolicy: Allow
+
+resources:
+  limits:
+    memory: "256Mi"
+    cpu: "250m"
+
+components: {}

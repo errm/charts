@@ -1,0 +1,51 @@
+{{- range $name, $component := .Values.components }}
+{{- if eq $component.kind "CronJob" }}
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ $.Values.name }}-{{ $name }}
+  labels:
+    app: {{ $.Values.name }}
+    component: {{ $name }}
+    chart: {{ $.Chart.Name }}-{{ $.Chart.Version | replace "+" "_" }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  schedule: "{{ $component.schedule }}"
+  successfulJobsHistoryLimit: {{ $component.successfulJobsHistoryLimit | default $.Values.cron.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ $component.failedJobsHistoryLimit | default $.Values.cron.failedJobsHistoryLimit }}
+  concurrencyPolicy: {{ $component.concurrencyPolicy | default $.Values.cron.concurrencyPolicy }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: {{ $.Values.name }}
+            component: {{ $name }}
+            release: {{ $.Release.Name }}
+          annotations:
+            checksum/env: {{ include (print $.Template.BasePath "/env.yaml") $ | sha256sum }}
+        spec:
+{{- if $.Values.image.pullSecret }}
+          imagePullSecrets:
+            - name: {{ $.Values.image.pullSecret }}
+{{- end }}
+          restartPolicy: OnFailure
+          containers:
+            - name: {{ $.Values.name }}
+              image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
+              imagePullPolicy: {{ $.Values.image.pullPolicy }}
+              command: {{ toJson $component.command }}
+              {{ if $component.args -}}
+              args: {{ toJson $component.args }}
+              {{ end -}}
+              envFrom:
+              - configMapRef:
+                  name: {{ $.Release.Name }}-env
+              - secretRef: 
+                  name: {{ $.Release.Name }}-env
+              resources:
+{{ $component.resources | default $.Values.resources | toYaml | indent 16 }}
+{{- end }}
+{{- end }}
