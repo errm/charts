@@ -23,36 +23,38 @@
       grid-gap: 1em;
     }
 
-    .package {
+    body > pre, .chart {
       box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
-      max-width: 30em;
+    }
+
+    .chart {
       background: aliceblue;
       border-radius: 0.5em;
     }
 
-    .package header:before,
-    .package header:after {
+    .chart header:before,
+    .chart header:after {
       content: "";
       display: table;
       clear: both;
     }
 
-    .package header {
+    .chart header {
       background: lightskyblue;
       padding: 0.5em;
     }
 
-    .package header h2,
-    .package header h3 {
+    .chart header h2,
+    .chart header h3 {
       margin: 0.2em;
     }
 
-    .package header h3 {
+    .chart header h3 {
       font-family: 'IBM Plex Mono', monospace;
       float: right;
     }
 
-    .package p {
+    .chart p {
       padding: 0 1em;
     }
 
@@ -68,7 +70,7 @@
   <pre>helm repo add errm https://errm.github.io/charts/</pre>
   <main>
 
-    <div class="package">
+    <div class="chart">
       <header>
         <h3>0.1.0</h3>
         <h2>app</h2>
@@ -81,7 +83,7 @@ helm install errm/app</pre>
       </div>
     </div>
 
-    <div class="package">
+    <div class="chart">
       <header>
         <h3>0.1.2</h3>
         <h2>versions</h2>
@@ -94,7 +96,7 @@ helm install errm/versions</pre>
       </div>
     </div>
 
-    <div class="package">
+    <div class="chart">
       <header>
         <h3>0.1.4</h3>
         <h2>kubeslate</h2>
