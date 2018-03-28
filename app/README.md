@@ -24,6 +24,11 @@ If you try to install this chart without first providing some configuration it w
 
 In order for this to be useful we expect the user/operator to provide some confuration that describes the application to be deployed.
 
+Helm will allow you to pass in multiple config files with the `-f` flag, and single variables with the `--set` flag.
+
+The configuration is designed to be highly mergable, so you could keep a skeleton configuration checked into your application VCS
+and then override some values for different environment provide secret variables etc.
+
 ## Example Config
 
 Here is a minimal example config
