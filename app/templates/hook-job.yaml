@@ -4,7 +4,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ $.Values.name }}-{{ $name }}
+  name: {{ $.Values.name }}-{{ $.Release.Name }}-{{ $name }}
   labels:
     app: {{ $.Values.name }}
     component: {{ $name }}
@@ -12,9 +12,9 @@ metadata:
     release: {{ $.Release.Name }}
     heritage: {{ $.Release.Service }}
   annotations:
-    "helm.sh/hook": {{ $component.hook }}
-    "helm.sh/hook-weight": {{ $component.weight | default 10 | quote }}
-    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+    "helm.sh/hook": {{ $component.hook | default $.Values.hookJob.hook }}
+    "helm.sh/hook-weight": {{ $component.weight | default $.Values.hookJob.weight | quote }}
+    "helm.sh/delete-policy": {{ $component.deletePolicy | default $.Values.hookJob.deletePolicy }}
 spec:
   template:
     metadata:
@@ -38,9 +38,9 @@ spec:
           {{ end -}}
           envFrom:
           - configMapRef:
-              name: {{ $.Release.Name }}-hook-env-{{ $.Release.Revision }}
+              name: {{ $.Values.name }}-{{ $.Release.Name }}-hook-env
           - secretRef:
-              name: {{ $.Release.Name }}-hook-env-{{ $.Release.Revision }}
+              name: {{ $.Values.name }}-{{ $.Release.Name }}-hook-env
           resources:
 {{ $component.resources | default $.Values.resources | toYaml | indent 12 }}
 {{- end -}}

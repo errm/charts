@@ -4,7 +4,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Values.name }}-{{ $name }}
+  name: {{ $.Values.name }}-{{ $.Release.Name }}-{{ $name }}
   labels:
     app: {{ $.Values.name }}
     component: {{ $name }}
@@ -34,9 +34,9 @@ spec:
           args: {{ toJson $component.args }}
           envFrom:
           - configMapRef:
-              name: {{ $.Release.Name }}-env
+              name: {{ $.Values.name }}-{{ $.Release.Name }}-env
           - secretRef:
-              name: {{ $.Release.Name }}-env
+              name: {{ $.Values.name }}-{{ $.Release.Name }}-env
           resources:
 {{ $component.resources | default $.Values.resources | toYaml | indent 12 }}
 {{- if $component.ports }}

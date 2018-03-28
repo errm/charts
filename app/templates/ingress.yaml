@@ -4,7 +4,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ $.Values.name }}-{{ $name }}
+  name: {{ $.Values.name }}-{{ $.Release.Name }}-{{ $name }}
   labels:
     app: {{ $.Values.name }}
     component: {{ $name }}

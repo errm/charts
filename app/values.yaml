@@ -17,9 +17,15 @@ cron:
   failedJobsHistoryLimit: 10
   concurrencyPolicy: Allow
 
+hookJob:
+  hook: pre-install,pre-upgrade
+  weight: 10
+  deletePolicy: hook-succeeded,hook-failed
+
 resources:
   limits:
     memory: "256Mi"
     cpu: "250m"
 
 components: {}
+env: {}

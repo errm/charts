@@ -4,7 +4,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ $.Values.name }}-{{ $name }}
+  name: {{ $.Values.name }}-{{ $.Release.Name }}-{{ $name }}
   labels:
     app: {{ $.Values.name }}
     component: {{ $name }}
@@ -12,7 +12,7 @@ metadata:
     release: {{ $.Release.Name }}
     heritage: {{ $.Release.Service }}
 spec:
-  schedule: "{{ $component.schedule }}"
+  schedule: {{ $component.schedule | quote }}
   successfulJobsHistoryLimit: {{ $component.successfulJobsHistoryLimit | default $.Values.cron.successfulJobsHistoryLimit }}
   failedJobsHistoryLimit: {{ $component.failedJobsHistoryLimit | default $.Values.cron.failedJobsHistoryLimit }}
   concurrencyPolicy: {{ $component.concurrencyPolicy | default $.Values.cron.concurrencyPolicy }}
@@ -42,9 +42,9 @@ spec:
               {{ end -}}
               envFrom:
               - configMapRef:
-                  name: {{ $.Release.Name }}-env
+                  name: {{ $.Values.name }}-{{ $.Release.Name }}-env
               - secretRef: 
-                  name: {{ $.Release.Name }}-env
+                  name: {{ $.Values.name }}-{{ $.Release.Name }}-env
               resources:
 {{ $component.resources | default $.Values.resources | toYaml | indent 16 }}
 {{- end }}
