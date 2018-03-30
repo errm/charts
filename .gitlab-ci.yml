@@ -1,0 +1,21 @@
+image: errm/helm-rake
+
+build:
+  stage: build
+  script:
+  - rake
+  artifacts:
+    paths:
+    - public
+
+pages:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+  - ls public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master

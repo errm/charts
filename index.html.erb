@@ -67,7 +67,7 @@
 </head>
 
 <body>
-  <pre>helm repo add errm https://errm.github.io/charts/</pre>
+  <pre>helm repo add errm <%= REPO_URL %></pre>
   <main>
 <% Chart.all.each do |chart| %>
     <div class="chart">

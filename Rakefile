@@ -2,7 +2,8 @@ require "ostruct"
 require "yaml"
 require "erb"
 
-REPO_URL = "https://errm.github.io/charts"
+REPO_URL = "https://charts.errm.co.uk"
+WEB_ROOT = "public"
 
 class Chart < OpenStruct
   def initialize(source)
@@ -25,25 +26,36 @@ class Chart < OpenStruct
   attr_reader :to_str
 
   def target
-    "docs/#{name}-#{version}.tgz"
+    "#{WEB_ROOT}/#{name}-#{version}.tgz"
   end
 end
 
 desc "Build packaged helm charts"
-task package: Chart.targets
+task package: [WEB_ROOT] + Chart.targets
 
 rule ".tgz" => ->(target) { Chart.from_target(target) } do |t|
-  sh "helm package -d docs #{t.source.name}"
+  sh "mkdir -p #{WEB_ROOT}"
+  sh "helm package -d #{WEB_ROOT} #{t.source.name}"
 end
 
 desc "Index the helm repo"
-task index: ["docs/index.yaml", "docs/index.html"]
-rule "docs/index.yaml" => Chart.targets do
-  sh "helm repo index docs --url #{REPO_URL}"
+task index: [WEB_ROOT, "#{WEB_ROOT}/index.yaml"] do
+  File.write("#{WEB_ROOT}/index.html", ERB.new(File.read("index.html.erb")).result)
 end
 
-rule "docs/index.html" => Chart.all + ["index.html.erb"] do |t|
-  File.write(t.name, ERB.new(File.read("index.html.erb")).result)
+rule "#{WEB_ROOT}/index.yaml" => Chart.targets do
+  sh "helm repo index #{WEB_ROOT} --url #{REPO_URL}"
+end
+
+task :clean do
+  sh "rm -rf #{WEB_ROOT}"
+end
+
+task WEB_ROOT do
+  #next if File.directory? WEB_ROOT
+  sh "curl -L https://gitlab.com/errm/charts/-/jobs/artifacts/master/download?job=build -o public.zip"
+  sh "unzip -n public.zip"
+  sh "rm public.zip"
 end
 
 task default: [:package, :index]
