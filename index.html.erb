@@ -28,6 +28,11 @@
       box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
     }
 
+    pre, a {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
     .chart {
       background: aliceblue;
       border-radius: 0.5em;
@@ -63,6 +68,20 @@
       font-family: 'IBM Plex Mono', monospace;
       padding: 1em;
       background: white;
+    }
+
+    @media only screen and (max-width: 500px) {
+      main, body, body > pre {
+        margin: 0;
+      }
+
+      body > pre {
+        margin-bottom: 1em;
+      }
+
+      .chart {
+        border-radius: 0;
+      }
     }
   </style>
 </head>

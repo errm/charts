@@ -52,7 +52,7 @@ task :clean do
 end
 
 task WEB_ROOT do
-  #next if File.directory? WEB_ROOT
+  next if File.directory? WEB_ROOT
   sh "curl -L https://gitlab.com/errm/charts/-/jobs/artifacts/master/download?job=build -o public.zip"
   sh "unzip -n public.zip"
   sh "rm public.zip"
