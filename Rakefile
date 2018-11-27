@@ -56,6 +56,7 @@ task WEB_ROOT do
   sh "curl -L https://gitlab.com/errm/charts/-/jobs/artifacts/master/download?job=build -o public.zip"
   sh "unzip -n public.zip"
   sh "rm public.zip"
+  sh "rm public/index.yaml"
 end
 
 task default: [:package, :index]
